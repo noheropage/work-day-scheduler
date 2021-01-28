@@ -28,6 +28,8 @@ for (var i=0; i < hours.length; i++) {
     // newInput.attr("")
     newSaveBtn.addClass("saveBtn col-2")
     newSaveBtn.attr("type", "submit")
+    newSaveBtn.attr("data-index", i);
+    // console.log(newSaveBtn.data());
     
     newHour.text(hours[i])
     newInput.val(newInput.textContent)
@@ -37,7 +39,11 @@ for (var i=0; i < hours.length; i++) {
     $(newRow).append(newHour)
     $(newRow).append(newInput)
     $(newRow).append(newSaveBtn)
-    fullInput += newInput;
+    // fullInput += newInput;
+    var oldInput = JSON.parse(localStorage.getItem("textInput" + i))
+    // console.log(oldInput);
+    newInput.val(oldInput) 
+    // console.log(newInput.text());
 }
 
 
@@ -48,13 +54,19 @@ $(".saveBtn").on("click", function(event) {
     // get text data from input field 
     event.preventDefault()
     // var element = event.
-    // console.log
+    // saves corresponding user input
     var textInput = $(this).parent().children(".description").val()
-    console.log(textInput);
+    // console.log(textInput);
     
     // place it into local storage 
-    localStorage.setItem("textInput", JSON.stringify(textInput))
+    localStorage.setItem("textInput" + $(this).data("index"), JSON.stringify(textInput))
 
     // display the info stored in local storage (first thing) 
 
 })
+
+// for (var i=0; i < hours.length; i++) {
+//     var oldInput = JSON.parse(localStorage.getItem("textInput" + i))
+//     console.log(oldInput);
+//     newInput.textContent = oldInput 
+// }
